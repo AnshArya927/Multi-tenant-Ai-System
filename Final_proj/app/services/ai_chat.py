@@ -18,8 +18,8 @@ def build_customer_prompt_context(recent_chats, company, customer_query, faqs):
     faq_texts = [f"{q} - {a}" for q, a in faqs]
     top_faqs = get_semantic_top_k(customer_query, faq_texts, top_k=10)
     #build context
-    context = f"""Company: {company['name']}
-    Description: {company['description']}
+    context = f"""Company: {company.name}
+    Description: {company.description}
 
     FAQs:
     """
@@ -66,7 +66,7 @@ def needs_fallback(user_query, threshold=0.75):
 #calls above functions to work in order and gives final response
 def customer_chatbot_answer(user, company, query, faqs, recent_chats):
     if needs_fallback(query):
-        ticket = create_fallback_ticket(user, company['id'], query)
+        ticket = create_fallback_ticket(user, company.id, query)
         return f"It seems you need further help. A support ticket has been created (Ticket ID: {ticket.id}). Our team will get back to you shortly."
     context = build_customer_prompt_context(recent_chats,company, query, faqs)
     response = generate_ai_answer(context)
