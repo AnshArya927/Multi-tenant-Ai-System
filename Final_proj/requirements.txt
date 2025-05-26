@@ -1,0 +1,9 @@
+Flask
+Flask-SQLAlchemy
+Werkzeug
+python-dotenv
+Flask-JWT-Extended
+transformers
+torch
+nltk
+sentence-transformers
