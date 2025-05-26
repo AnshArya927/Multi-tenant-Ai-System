@@ -1,10 +1,10 @@
-#This is the route for the dashboards and first veiw of all types of users
+#This is the route for the dashboards and first veiw of all types of users(complete)
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models import User, Ticket, FAQ, Feedback, PerformanceMetric, ChatLog, Article, Suggestion
 from app.utils.database import db
 from sqlalchemy import func, desc
-
+from app.services.metrics import get_agent_performance_summary
 dashboard_bp = Blueprint('dashboard', __name__)
 
 
@@ -95,22 +95,8 @@ This is protected for user role: agents
 This simply uses the PerformanceMetric Table to access all the data and display them
 '''
 def get_agent_dashboard(agent_id):
-    perf = PerformanceMetric.query.filter_by(agent_id=agent_id).first()
-    suggestions_count = Suggestion.query.filter_by(agent_id=agent_id).count()
 
-    return jsonify({
-        'performance_metrics': {
-            'avg_response_time': perf.avg_response_time if perf else None,
-            'resolution_rate': perf.resolution_rate if perf else None,
-            'sentiment_score': perf.sentiment_score if perf else None,
-            'politeness_score': perf.politeness_score if perf else None,
-            'csat_score': perf.csat_score if perf else None,
-            'avg_feedback_rating': perf.avg_feedback_rating if perf else None,
-            'tickets_open': perf.tickets_open if perf else None,
-            'tickets_closed': perf.tickets_closed if perf else None
-        },
-        'suggestions_made': suggestions_count,
-    })
+    return jsonify(get_agent_performance_summary(agent_id))
 
 
 #CUSTOMER DASHBOARD
