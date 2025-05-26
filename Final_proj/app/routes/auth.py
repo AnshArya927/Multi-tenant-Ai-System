@@ -1,4 +1,4 @@
-#This file implements the authentication system (NOT for companies)
+#This file implements the authentication system (NOT for companies)(complete)
 from flask import Blueprint, request, jsonify
 from app.models import User,Company
 from app.utils.database import db
