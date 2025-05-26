@@ -1,4 +1,4 @@
-#This contains routes for both the chatbots
+#This contains routes for both the chatbots(complete)
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models import User, Company, FAQ, Suggestion, Ticket, ChatLog
@@ -36,7 +36,6 @@ def customer_chat():
     company = Company.query.get(user.company_id)
     if not company:
         return jsonify({'error': 'Company not found'}), 404
-
     #fetch faqs and suggestions for this company
     faqs = [(faq.question, faq.answer) for faq in FAQ.query.filter_by(company_id=company.id).all()]
     #fetch recent chatbot chats for context
@@ -47,9 +46,7 @@ def customer_chat():
         .all()
     )
     #call chatbot function
-    response_text = customer_chatbot_answer(user, 
-                                           {'id': company.id, 'name': company.name, 'description': company.description},
-                                           input_text, faqs, recent_chats)
+    response_text = customer_chatbot_answer(user, company, input_text, faqs, recent_chats)
 
     chat = ChatLog(
         user_id = user_id,
