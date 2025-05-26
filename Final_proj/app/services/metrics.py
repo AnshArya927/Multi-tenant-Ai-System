@@ -1,4 +1,4 @@
-#Calculate agent performance(AI Powered)
+#Calculate agent performance(AI Powered)(complete)
 from datetime import datetime
 from app.models import Ticket,TicketMessage, PerformanceMetric, Feedback, Suggestion
 from app.utils.database import db
@@ -68,7 +68,7 @@ def score_politeness(agent_id,limit=5) -> float:
     )
 
     chat_history = [
-        f"{msg.sender.lower()}: {msg.message.strip()}" for msg in reversed(messages)
+        f"{msg.sender_id}: {msg.message.strip()}" for msg in reversed(messages)
     ]
     combined_text = " ".join(chat_history)
     candidate_labels = ["polite", "impolite"]
