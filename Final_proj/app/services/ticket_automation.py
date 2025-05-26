@@ -1,3 +1,4 @@
+#AUTOMATIC TICKET CREATION ON FALLBACK(complete)
 from app.models import Ticket, User
 from app.utils.database import db
 from datetime import datetime
