@@ -1,4 +1,4 @@
-#this file contains all routes related to company related work
+#this file contains all routes related to company related work(completed)
 from flask import Blueprint, request, jsonify
 from app.utils.database import db
 from app.models import Company, FAQ, User, Article
