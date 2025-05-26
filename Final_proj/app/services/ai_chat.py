@@ -1,4 +1,4 @@
-#CUSTOMER-CHATBOT
+#CUSTOMER-CHATBOT(complete)
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from sentence_transformers import util
 from app.services.embedding_model import get_semantic_top_k,semantic_model
