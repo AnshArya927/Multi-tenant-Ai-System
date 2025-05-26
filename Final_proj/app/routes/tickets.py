@@ -52,13 +52,13 @@ def get_ticket(ticket_id):
         return jsonify({'error': 'Unauthorized access'}), 403
     if user.role in ['agent', 'company_admin'] and ticket.company_id != user.company_id:
         return jsonify({'error': 'Unauthorized access'}), 403
-
+    ticket_messages = TicketMessage.query.filter_by(ticket_id=ticket_id).all()
     messages = [{
         'id': m.id,
         'sender_id': m.sender_id,
         'message': m.message,
-        'created_at': m.created_at.isoformat()
-    } for m in ticket.messages]
+        'created_at': m.sent_at.isoformat()
+    } for m in ticket_messages]
 
     ticket_data = {
         'id': ticket.id,
